@@ -5,10 +5,15 @@ import (
 
 	"github.com/haliivi/go-todo-app"
 	"github.com/haliivi/go-todo-app/pkg/handler"
+	"github.com/haliivi/go-todo-app/pkg/repository"
+	"github.com/haliivi/go-todo-app/pkg/service"
 )
 
 func main() {
-	handlers := new(handler.Handler)
+	repos := repository.NewRepository()
+	services := service.NewService(repos)
+	handlers := handler.NewHandler(services)
+	
 	srv := new(todo.Server)
 	if err := srv.Run("8888", handlers.InitRoutes()); err != nil {
 		log.Fatalf("error occured while running http server: %s", err.Error())
