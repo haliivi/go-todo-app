@@ -97,7 +97,7 @@ func (h *Handler) deleteList(c *gin.Context) {
 		newErrorResponse(c, http.StatusInternalServerError, "invalid id param")
 		return
 	}
-	err = h.services.Delete(userId, id)
+	err = h.services.TodoList.Delete(userId, id)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
