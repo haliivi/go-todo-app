@@ -3,6 +3,11 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/haliivi/go-todo-app/pkg/service"
+
+	ginSwagger "github.com/swaggo/gin-swagger"
+	swaggerFiles "github.com/swaggo/files"
+
+	_ "github.com/haliivi/go-todo-app/docs"
 )
 
 type Handler struct {
@@ -17,6 +22,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	gin.SetMode(gin.DebugMode)
 
 	router := gin.New()
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	auth := router.Group("/auth")
 	{
